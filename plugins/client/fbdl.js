@@ -84,7 +84,7 @@ async function facebookCommand(sock,chatId, message) {
         await message.client.sendMessage(chatId, {
             video: { url: tempFile },
             mimetype: "video/mp4",
-            caption: "> © ᴘσωєʀє∂ ву 𝖐𝚊𝚒𝚜𝖊𝖓 𝙼ԃ⎯꯭̽💀"
+            caption: "> © 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐑4𝐁𝐁𝐈𝐓"
         }, { quoted: message });
 
         // Clean up temp file
@@ -97,7 +97,7 @@ async function facebookCommand(sock,chatId, message) {
     } catch (error) {
         console.error('Error in Facebook command:', error);
         await message.client.sendMessage(chatId, { 
-            text: "An error occurred. API might be down. Please try again later."
+            text: "An error occurred. . Please try again later."
         });
     }
 }
