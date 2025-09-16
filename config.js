@@ -27,7 +27,7 @@ module.exports = {
   ALLWAYS_ONLINE: toBool(process.env.ALLWAYS_ONLINE || 'false'),
   PM_BLOCK: process.env.PM_BLOCK || 'false',
   BGMBOT: toBool(process.env.BGMBOT || 'false'),
-  STATUS_VIEW: process.env.STATUS_VIEW || 'false',
+  STATUS_VIEW: process.env.STATUS_VIEW || 'true',
   SAVE_STATUS: toBool(process.env.SAVE_STATUS || 'false'),
   DISABLE_PM: toBool(process.env.DISABLE_PM || 'false'),
   DISABLE_GRP: toBool(process.env.DISABLE_GRP || 'false'),
@@ -57,6 +57,9 @@ module.exports = {
   ELEVENLABS: process.env.ELEVENLABS || '',
   IMGFLIP_USERNAME: process.env.IMGFLIP_USERNAME || '', // add your imgflip username here
   IMGFLIP_PASSWORD: process.env.IMGFLIP_PASSWORD || '', // add your imgflip password here
+
+  // ✅ Add menu image URL here
+  MENU_IMAGE: process.env.MENU_IMAGE || 'https://cdn.ironman.my.id/i/v8fjnp.jpg',
 
   DATABASE: DB_URL
     ? new Sequelize(DB_URL, {
