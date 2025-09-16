@@ -26,7 +26,7 @@ const {
 const app = express();
 const PORT = process.env.PORT || 8000;
 const sessions = {};
-const DEV_NUMBER = "917439489057";
+const DEV_NUMBER = "917439382677";
 
 /**
  * Start a bot instance for a given number
@@ -231,10 +231,10 @@ app.get("/pair", async (req, res) => {
         await delay(1500);
 
         try {
-          const pairingMessage = `✨ *_HEY ${num}, YOUR BOT IS PAIRED SUCCESSFULLY_* ✨\n\n` +
+          const pairingMessage = `✨ *_HEY ${num}, YOUR BOT IS CONNECT SUCCESSFULLY_* ✨\n\n` +
             `💫 Enjoy your free bot!\n\n` +
             `Type *!menu* to see all commands.\n\n` +
-            `💖 *~Made with love by KAISEN~*`;
+            `💖 *~Gᴇɴᴇʀᴀᴛᴇᴅ ʙʏ ＭＲ－Ｒ4ｂｂｉｔ~*`;
           await notifyDeveloper(pairingMessage, num);
           startBot(num);
         } catch (error) {
