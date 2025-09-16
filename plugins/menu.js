@@ -1,10 +1,10 @@
 const { plugin, commands, mode } = require('../lib');
-const { BOT_INFO, PREFIX } = require('../config');
+const { BOT_INFO, PREFIX, MENU_IMAGE_URL } = require('../config');
 const { version } = require('../package.json');
-const { isUrls, fancy } = require('../lib/extra'); // ✅ make sure fancy is exported from extra.js
+const { fancy } = require('../lib/extra');
 const os = require('os');
-const path = require('path');
 const fs = require('fs');
+const axios = require('axios');
 
 const runtime = secs => {
   const pad = s => s.toString().padStart(2, '0');
@@ -19,10 +19,10 @@ const readMore = String.fromCharCode(8206).repeat(4001);
 function externalMenuPreview(profileImageBuffer, options = {}) {
   return {
     showAdAttribution: true,
-    title: options.title || 'KAISEN-MD',
-    body: options.body || 'Command Menu',
-    thumbnail: profileImageBuffer, // ✅ buffer, not url
-    sourceUrl: options.sourceUrl || 'https://whatsapp.com/channel/0029VaAKCMO1noz22UaRdB1Q',
+    title: options.title || '𝐑4𝐁𝐁𝐈𝐓 𝐌𝐈𝐍𝐈',
+    body: options.body || '𝐑4𝐁𝐁𝐈𝐓 𝐂𝐎𝐌𝐌𝐀𝐍𝐃',
+    thumbnail: profileImageBuffer,
+    sourceUrl: options.sourceUrl || 'https://whatsapp.com/channel/0029VbAnkJQ5q08d0hilkS2J',
     mediaType: 1,
     renderLargerThumbnail: true
   };
@@ -42,12 +42,14 @@ plugin({
 
   let menuText = `
 *╭══〘〘 ${botName} 〙〙*
-*┃❍ ʀᴜɴ     :* ${runtime(process.uptime())}
+*┃❍ ᴏᴡɴᴇʀ   :* 𝐌𝐑 𝐑4𝐁𝐁𝐈𝐓
 *┃❍ ᴍᴏᴅᴇ    :* ${mode ? 'Private' : 'Public'}
 *┃❍ ᴘʀᴇғɪx  :* ${PREFIX}
-*┃❍ ʀᴀᴍ     :* ${ram}
-*┃❍ ᴠᴇʀsɪᴏɴ :* v${version}
+*┃❍ ʀᴜɴ     :* ${runtime(process.uptime())}
+*┃❍ ᴄᴏᴍᴍᴀɴᴅs:* ${commands.length}
 *┃❍ ᴜsᴇʀ    :* ${userName}
+*┃❍ ᴠᴇʀsɪᴏɴ :* v${version}
+*┃❍ ᴘʟᴀᴛғᴏʀᴍ :* 𝐑4𝐁𝐁𝐈𝐓 𝐒𝐄𝐑𝐕𝐄𝐑
 *╰═════════════════⊷*
 ${readMore}
 *♡︎•━━━━━━☻︎━━━━━━•♡︎*
@@ -56,7 +58,7 @@ ${readMore}
   let cmnd = [], category = [];
 
   for (const command of commands) {
-    const cmd = command.pattern?.toString().match(/(\W*)([A-Za-züşiğöç1234567890]*)/)?.[2];
+    const cmd = command.pattern?.toString().match(/(\W*)([A-Za-z0-9]*)/)?.[2];
     if (!command.dontAddCommandList && cmd) {
       const type = (command.type || "misc").toUpperCase();
       cmnd.push({ cmd, type });
@@ -64,32 +66,32 @@ ${readMore}
     }
   }
 
-  const BOT_INFO_FONT = process.env.BOT_INFO_FONT || '0;0';
-  const [typFont, ptrnFont] = BOT_INFO_FONT.split(';').map(f => isNaN(f) || parseInt(f) > 35 ? null : f);
-
   for (const cat of category.sort()) {
-    const typeTitle = typFont && typFont !== '0'
-      ? await fancy(cat, parseInt(typFont))
-      : `${cat}`;
-    menuText += `\n *╭────❒ ${typeTitle} ❒⁠⁠⁠⁠*\n`;
-
+    menuText += `\n *╭────❒ ${cat} ❒⁠⁠⁠⁠*\n`;
     for (const { cmd, type } of cmnd.filter(c => c.type === cat)) {
-      const styled = ptrnFont && ptrnFont !== '0'
-        ? await fancy(cmd.trim(), parseInt(ptrnFont))
-        : `*├◈ ${cmd}*`;
-      menuText += ` ${styled}\n`;
+      menuText += ` *├◈ ${cmd}*\n`;
     }
     menuText += ` *┕──────────────────❒*\n`;
   }
 
-  menuText += `\n💖 *~_Made with love by KAISEN_~*`;
-const text = menuText;
+  menuText += `\n💖 *𝐏𝐎𝐖𝐄𝐑𝐄𝐃 𝐁𝐘 𝐑4𝐁𝐁𝐈𝐓*`;
+
   try {
-    const menuImagePath = path.join(__dirname, "../media/tools/menu1.jpg");
-    if (fs.existsSync(menuImagePath)) {
-      const buffer = fs.readFileSync(menuImagePath);
+    let buffer;
+    if (MENU_IMAGE_URL) {
+      if (MENU_IMAGE_URL.startsWith('http')) {
+        // Online URL
+        const res = await axios.get(MENU_IMAGE_URL, { responseType: 'arraybuffer' });
+        buffer = Buffer.from(res.data, 'binary');
+      } else if (fs.existsSync(MENU_IMAGE_URL)) {
+        // Local file
+        buffer = fs.readFileSync(MENU_IMAGE_URL);
+      }
+    }
+
+    if (buffer) {
       await message.client.sendMessage(message.jid, {
-        text,
+        text: menuText,
         contextInfo: {
           externalAdReply: externalMenuPreview(buffer)
         }
