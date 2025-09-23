@@ -1,16 +1,20 @@
 {
-  "name": "R4BBIT MINI",
+  "name": "R4BBIT-MINI",
   "version": "3.5.0",
-  "description": "WhatsApp bot made by R4BBIT with nodejs and baileys",
+  "description": "WhatsApp bot made by R4BBIT with Node.js and Baileys",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "pm2 start index.js --deep-monitoring --attach --name R4BBIT-MINI",
+    "start": "pm2 start index.js --name R4BBIT-MINI --watch",
     "stop": "pm2 stop R4BBIT-MINI",
     "restart": "pm2 restart R4BBIT-MINI"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/khankimagi-bessa/Multiple.git test"
+    "url": "git+https://github.com/khankimagi-bessa/Multiple.git"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
@@ -22,15 +26,12 @@
     "axios": "^1.10.0",
     "body-parser": "^2.2.0",
     "cheerio": "^1.0.0-rc.10",
-    "child_process": "^1.0.2",
-    "crypto": "^1.0.1",
     "dotenv": "^16.0.2",
-    "express": "latest",
+    "express": "^4.18.2",
     "file-type": "^16.5.3",
     "firebase": "^12.2.1",
     "fluent-ffmpeg": "^2.1.2",
     "form-data": "^4.0.0",
-    "fs": "^0.0.1-security",
     "fs-extra": "^11.3.1",
     "google-tts-api": "^2.0.2",
     "heroku-client": "^3.1.0",
@@ -39,12 +40,10 @@
     "link-preview-js": "^3.1.0",
     "megajs": "^1.1.0",
     "moment-timezone": "^0.5.34",
-    "node-cron": "3.0.3",
+    "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
     "node-webpmux": "^3.1.1",
     "openai": "^5.12.2",
-    "os": "^0.1.2",
-    "path": "^0.12.7",
     "pg": "^8.11.3",
     "pino": "^7.11.0",
     "pm2": "^6.0.5",
@@ -53,7 +52,6 @@
     "sequelize": "^6.21.4",
     "simple-git": "^3.7.1",
     "sqlite3": "^5.0.11",
-    "util": "^0.12.4",
     "yt-search": "^2.10.2",
     "ytdl-core": "^4.11.2"
   }
