@@ -19,7 +19,7 @@ plugin({
 
   const styledText = `◈\n*╰┈➤ 𝐏𝐎𝐍𝐆: ${ping} ms*`;
 
-  const channelJid = "120363420208876417@newsletter";
+  const channelJid = "120363420641018865@newsletter";
   const channelName = "𝐑4𝐁𝐁𝐈𝐓";         
   const serverMessageId = 1;
 
